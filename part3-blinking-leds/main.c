@@ -43,7 +43,6 @@ int main(void)
 	uint32_t *gpioc_pupdr = (uint32_t *)(0x48000800 + 0x0C);
 	uint32_t *gpioc_odr = (uint32_t *)(0x48000800 + 0x14);
 
-
 	//pb7
 	*gpiob_moder &= ~(3UL<<14); //clear mode bits
 	*gpiob_moder |= (1UL<<14); //set mode to output
@@ -65,61 +64,17 @@ int main(void)
 	*gpioc_ospeedr &= ~(3UL<<14); //low speed
 	*gpioc_pupdr &= ~(3ULL<<14); //no pull
 
-
-	__asm__ volatile (
-
-	// enabling GPIO clock
-	movw r0, #0x104C //lower
-	movt r0, #0x4002 //upper
-	ldr r1, [r0]
-	orr r1, r1, #0x6
-	str r1, [r0]
-
-	movw r0, #0x0400
-	movt r0 #0x4800
-
-	//moder
-	ldr r1, [r0]
-	bic r1,r1,0xC000 //uint32_t *gpiob_moder = (uint32_t *)(0x48000400 + 0x00);
-	orr r1, r1,0x4000 //1UL << 14
-	str r1, [r0]
-
-    //otyper
-	ldr r1, [r0, #0x04] //uint32_t *gpiob_otyper = (uint32_t *)(0x48000400 + 0x04);
-	bic r1, r1, #0x80  //1UL << 7
-	str r1, [r0, #0x04]
-
-	//ospeedr
-	ldr r1, [r0, #0x08] //uint32_t *gpiob_ospeedr = (uint32_t *)(0x48000400 + 0x08);
-	bic r1, r1, #0xC000 //3UL << 14
-	str r1, [r0, #0x08]
-
-	//pupdr
-	ldr r1, [r0, #0x0C] //uint32_t *gpiob_pupdr = (uint32_t *)(0x48000400 + 0x0C);
-	bic r1, r1, #0xC000 //3UL << 14
-	str r1, [r0, #0x0C]
-
-	//odr
-	ldr r1, [r0, #0x14] //uint32_t *gpiob_odr = (uint32_t *)(0x48000400 + 0x14);
-	orr r1, r1, #0x80 //1UL << 7
-	str r1, [r0, #0x14]
-
-
-	);
-
-
-
 	while(1)
 	{
-		*gpioc_odr |= (1UL << 7);    //pc7 on
+		*gpioc_odr |= (1UL << 7); //pc7 on
 		pause();
-		*gpioc_odr &= ~(1UL << 7);    //pc7 off
-		*gpiob_odr |= (1UL << 7);    //pb7 on
+		*gpioc_odr &= ~(1UL << 7); //pc7 off
+		*gpiob_odr |= (1UL << 7); //pb7 on
 		pause();
-		*gpiob_odr &= ~(1UL << 7);    //pb7 off
-		*gpiob_odr |= (1UL << 14);   //pb14 on
+		*gpiob_odr &= ~(1UL << 7); //pb7 off
+		*gpiob_odr |= (1UL << 14); //pb14 on
 		pause();
-		*gpiob_odr &= ~(1UL << 14);   //pb14 off
+		*gpiob_odr &= ~(1UL << 14); //pb14 off
 	}
 
 }
