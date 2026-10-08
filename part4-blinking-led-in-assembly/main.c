@@ -22,7 +22,7 @@ int main(void)
 {
 	__asm__ volatile (
 
-		// enabling GPIO clock
+		//enabling GPIO clock
 		"movw r0, #0x104C\n\t" //lower
 		"movt r0, #0x4002\n\t" //upper
 		"ldr r1, [r0]\n\t"
@@ -57,8 +57,7 @@ int main(void)
 		"ldr r1, [r0, #0x14]\n\t" //uint32_t *gpiob_odr = (uint32_t *)(0x48000400 + 0x14);
 		"orr r1, r1, #0x80\n\t" //1UL << 7
 		"str r1, [r0, #0x14]\n\t"
-
 		);
+	
 	while (1);
-
 }
