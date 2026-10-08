@@ -6,5 +6,13 @@
 <img width="914" height="543" alt="image" src="https://github.com/user-attachments/assets/fcaec006-70bc-439f-8528-351ee445433c" />
 <img width="914" height="543" alt="image" src="https://github.com/user-attachments/assets/82ab3445-39e8-4232-bbf9-9d2f2840e7c7" />
 
+## Blinking LEDs
+##### On the NUCLEO-L4R5ZI-P board there 3 user LEDS available, which are LD1, LD2, and LD3. LD1 is a green user LED that is connected to the STM32 I/O PC7. LD2 is a blue user LED that is connected to PB7. LD3 is a red user LED that is connected to PB14. These user LEDs are on when the I/O is HIGH value, and are off when the I/O is LOW. These pins are configured as GPIOs which means that each LED is configured within their respective GPIO port. They should be configured as output because the board needs to make the LEDs either HIGH or LOW, which requires the pins to be an output. 
+
+<img width="1752" height="1032" alt="image" src="https://github.com/user-attachments/assets/59b27ccc-1a29-46e8-8e6e-afc4b924f4ae" />
+
+
+
+
 
 
